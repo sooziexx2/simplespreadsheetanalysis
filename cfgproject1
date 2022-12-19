@@ -1,0 +1,30 @@
+import csv
+def read_data():
+    data = []
+    with open('sales.csv', 'r') as sales_csv:
+        spreadsheet = csv.DictReader(sales_csv)
+        for row in spreadsheet:
+            data.append(row)
+    return data
+def run():
+    data = read_data()
+    sales = []
+    lowest_sale = int(data[0]['sales'])
+    highest_sale = int(data[0]['sales'])
+    lowest_month = data[0]['month']
+    highest_month = data[0]['month']
+    for row in data:
+        sale = int(row['sales'])
+        month = row['month']
+        sales.append(sale)
+        total = sum(sales)
+        print('total sales for {}: {}'.format(month, sale))
+        if sale < lowest_sale:
+            lowest_sale = sale
+            lowest_month = month
+        if sale > highest_sale:
+            highest_sale = sale
+            highest_month = month
+    print('Highest sale is in {} and is: {}'.format(highest_month, highest_sale))
+    print('Lowest sale is in {} and is: {}'.format(lowest_month, lowest_sale))
+run()
